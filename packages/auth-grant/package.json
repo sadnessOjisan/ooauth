@@ -4,6 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc --noEmit"
+    "build": "tsc --noEmit",
+    "dev": "ts-node src"
+  },
+  "dependencies": {
+    "fastify": "^3.27.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.4.0"
   }
 }
