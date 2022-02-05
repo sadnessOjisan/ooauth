@@ -8,7 +8,9 @@
     "dev": "ts-node src"
   },
   "dependencies": {
-    "fastify": "^3.27.1"
+    "@sinclair/typebox": "^0.23.3",
+    "fastify": "^3.27.1",
+    "fastify-formbody": "^5.2.0"
   },
   "devDependencies": {
     "ts-node": "^10.4.0"

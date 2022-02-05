@@ -6,6 +6,9 @@ const fastify = Fastify({
   logger: false,
 });
 
+fastify.register(require("fastify-formbody"));
+import { Static, Type } from "@sinclair/typebox";
+
 /**
  * 認可エンドポイント
  * 認可画面を生成してユーザーに返す
@@ -26,6 +29,12 @@ fastify.get("/grant", (request, reply) => {
   });
 });
 
+const Body = Type.Object({
+  email: Type.String({ format: "email" }),
+  password: Type.String({ minLength: 8 }),
+});
+type TBody = Static<typeof Body>;
+
 /**
  * 認可決定エンドポイント
  * 認証できたら認可コードを生成する
@@ -35,9 +44,18 @@ fastify.get("/grant", (request, reply) => {
  *   - status: 302
  *   - ?code=認可コード
  */
-fastify.get("/auth", (request, reply) => {
-  reply.send("need redirect");
-});
+fastify.post<{ Body: TBody; Reply: string }>(
+  "/auth",
+  {
+    schema: {
+      body: Body,
+    },
+  },
+  (request, reply) => {
+    const { email, password } = request.body;
+    reply.redirect(`http://localhost:3001?code=${100000}`);
+  }
+);
 
 /**
  * トークンエンドポイント
