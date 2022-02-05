@@ -8,5 +8,12 @@
   "license": "MIT",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  },
+  "scripts": {
+    "auth-grant": "yarn workspace @ooauth/auth-grant",
+    "build:auth-grant": "yarn auth-grant build"
+  }
 }
