@@ -1,7 +1,9 @@
 import Fastify from "fastify";
+import fs from "fs";
+import path from "path";
 
 const fastify = Fastify({
-  logger: true,
+  logger: false,
 });
 
 /**
@@ -17,7 +19,11 @@ const fastify = Fastify({
  *
  */
 fastify.get("/grant", (request, reply) => {
-  reply.send("need redirect");
+  const url = path.join(process.cwd(), "./src/template/auth.html");
+  fs.readFile(url, (err, data) => {
+    reply.type("text/html");
+    reply.send(data);
+  });
 });
 
 /**
